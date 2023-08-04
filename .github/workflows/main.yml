@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Get version
         id: get_version
-        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
+        run: echo ::set-output name=VERSION::$(node -p "require('../../../package.json').version")
 
       - name: Publish to npm
         run: npm publish
