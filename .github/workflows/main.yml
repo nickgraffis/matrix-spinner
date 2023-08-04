@@ -1,0 +1,48 @@
+name: Publish to npm and update CHANGELOG.md
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate changelog
+        uses: github-changelog-generator/github-changelog-generator@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output: CHANGELOG.md
+          base: ""
+          header-label: "# Changelog"
+          unreleased: false
+          compare-link: true
+          future-release: v${{ steps.get_version.outputs.VERSION }}
+
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

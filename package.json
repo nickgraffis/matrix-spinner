@@ -1,0 +1,23 @@
+{
+  "name": "matrix-spinner",
+  "version": "0.0.1",
+  "description": "An elegant spinner for node js.",
+  "main": "dist/index.js",
+  "keywords": [
+    "spinner",
+    "cli",
+    "node.js"
+  ],
+  "author": "Nick Graffis <hi@nickgraffis.me>",
+  "license": "MIT",
+  "repository": "https://github.com/yourusername/matrix-spinner",
+  "bugs": "https://github.com/yourusername/matrix-spinner/issues",
+  "homepage": "https://github.com/yourusername/matrix-spinner#readme",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.7",
+    "typescript": "^5.1.6"
+  }
+}
